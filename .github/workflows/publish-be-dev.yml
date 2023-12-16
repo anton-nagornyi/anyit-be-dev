@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: publish
-        uses: anton-nagornyi/anyit-act/.github/composite-actions/publish@main
+        uses: anton-nagornyi/anyit-be-dev/.github/composite-actions/publish@main
         with:
           working-directory: ./
           npm-auth-token: ${{ secrets.NPM_AUTH_TOKEN }}
