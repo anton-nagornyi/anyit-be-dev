@@ -2,27 +2,22 @@ const fs = require('fs');
 const path = require('path');
 
 function isParentProject() {
-  fs.writeFileSync(process.env.PROJECT_CWD + '/.test.log', JSON.stringify(process.env, null, 2), 'utf-8');
-
   const currentPackageJsonPath = path.join(process.env.PROJECT_CWD, 'package.json');
   if (fs.existsSync(currentPackageJsonPath)) {
     // eslint-disable-next-line import/no-dynamic-require,global-require
     const currentPackageJson = require(currentPackageJsonPath);
-    fs.writeFileSync(process.env.PROJECT_CWD + '/.test.log', JSON.stringify(currentPackageJson, null, 2), 'utf-8');
-
-    fs.writeFileSync(process.env.PROJECT_CWD + '/.test.log', `!!!! ${currentPackageJson.name}`, 'utf-8');
     return (
       !currentPackageJson.name || currentPackageJson.name !== '@anyit/be-dev'
     );
   }
   return false;
-
-  return process.env.npm_package_name !== '@anyit/be-dev';
 }
 
 function copyDir(src, dest) {
   fs.mkdirSync(dest, { recursive: true });
   const entries = fs.readdirSync(src, { withFileTypes: true });
+
+  fs.appendFileSync(process.env.PROJECT_CWD + '/.test.log', `Copy dir, ${src} -> ${dest}`, 'utf-8');
 
   for (const entry of entries) {
     const srcPath = path.join(src, entry.name);
@@ -41,9 +36,9 @@ function performPostInstallTasks() {
   const parentYarnPath = path.join(process.env.PROJECT_CWD, '.yarn');
   const parentSdkPath = path.join(parentYarnPath, 'sdks');
 
-  fs.writeFileSync(process.env.PROJECT_CWD + '/.test.log', libSdkPath, 'utf-8');
-  fs.writeFileSync(process.env.PROJECT_CWD + '/.test.log', parentYarnPath, 'utf-8');
-  fs.writeFileSync(process.env.PROJECT_CWD + '/.test.log', parentSdkPath, 'utf-8');
+  fs.appendFileSync(process.env.PROJECT_CWD + '/.test.log', libSdkPath, 'utf-8');
+  fs.appendFileSync(process.env.PROJECT_CWD + '/.test.log', parentYarnPath, 'utf-8');
+  fs.appendFileSync(process.env.PROJECT_CWD + '/.test.log', parentSdkPath, 'utf-8');
 
   if (!fs.existsSync(parentYarnPath)) {
     fs.mkdirSync(parentYarnPath);
@@ -66,9 +61,9 @@ function performPostInstallTasks() {
   }
 }
 
-fs.writeFileSync(process.env.PROJECT_CWD + '/.test.log', 'Setting SDKs...', 'utf-8');
+fs.appendFileSync(process.env.PROJECT_CWD + '/.test.log', 'Setting SDKs...', 'utf-8');
 console.log('Setting SDKs...');
 if (isParentProject()) {
-  fs.writeFileSync(process.env.PROJECT_CWD + '/.test.log', 'Is parent', 'utf-8');
+  fs.appendFileSync(process.env.PROJECT_CWD + '/.test.log', 'Is parent', 'utf-8');
   performPostInstallTasks();
 }
