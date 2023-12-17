@@ -17,7 +17,7 @@ function copyDir(src, dest) {
   fs.mkdirSync(dest, { recursive: true });
   const entries = fs.readdirSync(src, { withFileTypes: true });
 
-  fs.appendFileSync(process.env.PROJECT_CWD + '/.test.log', `Copy dir, ${src} -> ${dest}`, 'utf-8');
+  fs.appendFileSync(process.env.PROJECT_CWD + '/.test.log', `Copy dir, ${src} -> ${dest}\n`, 'utf-8');
 
   for (const entry of entries) {
     const srcPath = path.join(src, entry.name);
@@ -32,13 +32,9 @@ function copyDir(src, dest) {
 }
 
 function performPostInstallTasks() {
-  const libSdkPath = path.join(__dirname, 'dist', 'sdks');
+  const libSdkPath = path.join(__dirname, 'sdks');
   const parentYarnPath = path.join(process.env.PROJECT_CWD, '.yarn');
   const parentSdkPath = path.join(parentYarnPath, 'sdks');
-
-  fs.appendFileSync(process.env.PROJECT_CWD + '/.test.log', libSdkPath, 'utf-8');
-  fs.appendFileSync(process.env.PROJECT_CWD + '/.test.log', parentYarnPath, 'utf-8');
-  fs.appendFileSync(process.env.PROJECT_CWD + '/.test.log', parentSdkPath, 'utf-8');
 
   if (!fs.existsSync(parentYarnPath)) {
     fs.mkdirSync(parentYarnPath);
@@ -61,9 +57,7 @@ function performPostInstallTasks() {
   }
 }
 
-fs.appendFileSync(process.env.PROJECT_CWD + '/.test.log', 'Setting SDKs...', 'utf-8');
 console.log('Setting SDKs...');
 if (isParentProject()) {
-  fs.appendFileSync(process.env.PROJECT_CWD + '/.test.log', 'Is parent', 'utf-8');
   performPostInstallTasks();
 }
