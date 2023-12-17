@@ -2,15 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 function isParentProject() {
-  const currentPackageJsonPath = path.join(process.cwd(), 'package.json');
-  if (fs.existsSync(currentPackageJsonPath)) {
-    // eslint-disable-next-line import/no-dynamic-require,global-require
-    const currentPackageJson = require(currentPackageJsonPath);
-    return (
-      !currentPackageJson.name || currentPackageJson.name !== '@anyit/be-dev'
-    );
-  }
-  return false;
+  return process.env.npm_package_name !== '@anyit/be-dev';
 }
 
 function copyDir(src, dest) {
@@ -55,6 +47,7 @@ function performPostInstallTasks() {
   }
 }
 
+console.log('Setting SDKs...');
 if (isParentProject()) {
   performPostInstallTasks();
 }

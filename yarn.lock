@@ -46,6 +46,9 @@ __metadata:
     rollup-plugin-dts: "npm:^6.1.0"
     ts-jest: "npm:^29.1.1"
     typescript: "npm:^5.3.3"
+  bin:
+    rimraf: ./bin/proxy-rimraf.js
+    rollup: ./bin/proxy-rollup.js
   languageName: unknown
   linkType: soft
 
