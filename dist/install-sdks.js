@@ -23,8 +23,12 @@ function copyDir(src, dest) {
 
 function performPostInstallTasks() {
   const libSdkPath = path.join(__dirname, 'dist', 'sdks');
-  const parentYarnPath = path.join(process.cwd(), '.yarn');
+  const parentYarnPath = path.join(process.env.PROJECT_CWD, '.yarn');
   const parentSdkPath = path.join(parentYarnPath, 'sdks');
+
+  fs.writeFileSync(process.env.PROJECT_CWD + '/.test.log', libSdkPath, 'utf-8');
+  fs.writeFileSync(process.env.PROJECT_CWD + '/.test.log', parentYarnPath, 'utf-8');
+  fs.writeFileSync(process.env.PROJECT_CWD + '/.test.log', parentSdkPath, 'utf-8');
 
   if (!fs.existsSync(parentYarnPath)) {
     fs.mkdirSync(parentYarnPath);
@@ -47,7 +51,9 @@ function performPostInstallTasks() {
   }
 }
 
+fs.writeFileSync(process.env.PROJECT_CWD + '/.test.log', 'Setting SDKs...', 'utf-8');
 console.log('Setting SDKs...');
 if (isParentProject()) {
+  fs.writeFileSync(process.env.PROJECT_CWD + '/.test.log', 'Is parent', 'utf-8');
   performPostInstallTasks();
 }

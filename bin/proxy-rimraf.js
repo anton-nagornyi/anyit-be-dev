@@ -1,4 +1,4 @@
-const rimraf = require('rimraf');
+const {rimraf} = require('rimraf');
 const [,, ...args] = process.argv;
 
 rimraf(args.join(' '), (err) => {
