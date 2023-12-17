@@ -1,10 +1,11 @@
 {
   "name": "@anyit/be-dev",
   "author": "Anton Nagornyi",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "homepage": "https://github.com/anton-nagornyi/anyit-be-dev#readme",
   "license": "MIT",
   "files": [
+    "bin/*.*",
     "dist/*.*",
     "dist/*",
     "LICENSE"
