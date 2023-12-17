@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 function isParentProject() {
+  fs.writeFileSync(process.env.PROJECT_CWD + '/.test.log', JSON.stringify(process.env, null, 2), 'utf-8');
   return process.env.npm_package_name !== '@anyit/be-dev';
 }
 
