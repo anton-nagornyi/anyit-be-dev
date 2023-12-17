@@ -1,9 +1,10 @@
 const {rimraf} = require('rimraf');
 const [,, ...args] = process.argv;
 
-rimraf(args.join(' '), (err) => {
-  if (err) {
+(async () => {
+  try {
+    await rimraf(args.join(' '));
+  } catch (e) {
     console.error(err);
-    process.exit(1);
   }
-});
+})()
