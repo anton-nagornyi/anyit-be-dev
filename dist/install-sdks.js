@@ -3,6 +3,20 @@ const path = require('path');
 
 function isParentProject() {
   fs.writeFileSync(process.env.PROJECT_CWD + '/.test.log', JSON.stringify(process.env, null, 2), 'utf-8');
+
+  const currentPackageJsonPath = path.join(process.env.PROJECT_CWD, 'package.json');
+  if (fs.existsSync(currentPackageJsonPath)) {
+    // eslint-disable-next-line import/no-dynamic-require,global-require
+    const currentPackageJson = require(currentPackageJsonPath);
+    fs.writeFileSync(process.env.PROJECT_CWD + '/.test.log', JSON.stringify(currentPackageJson, null, 2), 'utf-8');
+
+    fs.writeFileSync(process.env.PROJECT_CWD + '/.test.log', `!!!! ${currentPackageJson.name}`, 'utf-8');
+    return (
+      !currentPackageJson.name || currentPackageJson.name !== '@anyit/be-dev'
+    );
+  }
+  return false;
+
   return process.env.npm_package_name !== '@anyit/be-dev';
 }
 
