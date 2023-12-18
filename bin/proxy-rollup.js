@@ -1,19 +1,24 @@
 #!/usr/bin/env node
 
-const { exec } = require('child_process');
+const {existsSync} = require(`fs`);
+const {createRequire} = require(`module`);
+const {resolve} = require(`path`);
 
-const args = process.argv.slice(2).join(' ');
+const relPnpApiPath = "../../../../.pnp.cjs";
 
-const command = `rollup ${args}`;
+const absPnpApiPath = resolve(__dirname, relPnpApiPath);
 
-exec(command, (error, stdout, stderr) => {
-  if (error) {
-    console.error(`Error: ${error.message}`);
-    return;
+
+if (existsSync(absPnpApiPath)) {
+  if (!process.versions.pnp) {
+    // Setup the environment to be able to require eslint
+    require(absPnpApiPath).setup();
   }
-  if (stderr) {
-    console.error(`Stderr: ${stderr}`);
-    return;
-  }
-  console.log(stdout);
-});
+}
+
+const absRequire = createRequire(absPnpApiPath);
+
+const beDevDir = absRequire.resolve(`@anyit/be-dev/package.json`);
+const beDevRequire = createRequire(beDevDir);
+
+beDevRequire('rollup/dist/bin/rollup');

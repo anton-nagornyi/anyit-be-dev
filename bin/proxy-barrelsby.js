@@ -1,18 +1,15 @@
 #!/usr/bin/env node
+const { Barrelsby } = require('barrelsby/bin/index');
 
-const { exec } = require('child_process');
+const args = {
+  'directory': './',
+  'singleQuotes': true,
+  'delete': true,
+  'exclude': ['tests']
+}
 
-const args = process.argv.slice(2).join(' ');
-
-const command = `barrelsby ${args}`;
-exec(command, (error, stdout, stderr) => {
-  if (error) {
-    console.error(`Error: ${error.message}`);
-    return;
-  }
-  if (stderr) {
-    console.error(`Stderr: ${stderr}`);
-    return;
-  }
-  console.log(stdout);
-});
+try {
+  Barrelsby(args);
+} catch (e) {
+  console.error(e)
+}
