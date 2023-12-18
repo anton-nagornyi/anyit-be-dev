@@ -1,7 +1,7 @@
 {
   "name": "@anyit/be-dev",
   "author": "Anton Nagornyi",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "homepage": "https://github.com/anton-nagornyi/anyit-be-dev#readme",
   "license": "MIT",
   "files": [
@@ -10,6 +10,7 @@
     "LICENSE"
   ],
   "bin": {
+    "build": "./bin/build.js",
     "rimraf": "./bin/proxy-rimraf.js",
     "rollup": "./bin/proxy-rollup.js",
     "barrelsby": "./bin/proxy-barrelsby.js"
