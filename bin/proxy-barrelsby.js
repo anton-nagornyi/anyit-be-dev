@@ -2,10 +2,11 @@
 const { Barrelsby } = require('barrelsby/bin/index');
 
 const args = {
-  'directory': './',
-  'singleQuotes': true,
-  'delete': true,
-  'exclude': ['tests']
+  name: 'index',
+  directory: './',
+  singleQuotes: true,
+  delete: true,
+  exclude: ['tests']
 }
 
 try {
