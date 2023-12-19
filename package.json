@@ -1,7 +1,7 @@
 {
   "name": "@anyit/be-dev",
   "author": "Anton Nagornyi",
-  "version": "1.0.17",
+  "version": "1.0.18",
   "homepage": "https://github.com/anton-nagornyi/anyit-be-dev#readme",
   "license": "MIT",
   "files": [
@@ -27,11 +27,11 @@
     "postinstall": "node dist/install-sdks.js"
   },
   "dependencies": {
-    "@rollup/plugin-typescript": "^11.1.5",
     "@types/node": "^20.10.4",
     "@typescript-eslint/eslint-plugin": "^6.14.0",
     "@typescript-eslint/parser": "^6.14.0",
     "barrelsby": "^2.8.1",
+    "esbuild": "^0.19.10",
     "eslint": "8.52.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-airbnb-typescript": "^17.1.0",
