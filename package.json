@@ -1,7 +1,7 @@
 {
   "name": "@anyit/be-dev",
   "author": "Anton Nagornyi",
-  "version": "1.0.18",
+  "version": "1.0.19",
   "homepage": "https://github.com/anton-nagornyi/anyit-be-dev#readme",
   "license": "MIT",
   "files": [
@@ -43,6 +43,7 @@
     "prettier": "^3.1.1",
     "rimraf": "^5.0.5",
     "rollup": "^4.9.0",
+    "rollup-plugin-auto-external": "^2.0.0",
     "rollup-plugin-dts": "^6.1.0",
     "tslib": "^2.6.2",
     "typescript": "^5.3.3"

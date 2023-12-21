@@ -1,8 +1,28 @@
 #!/usr/bin/env node
 
 const { execSync } = require('child_process');
-const {join} = require("path");
-const {existsSync} = require("fs");
+const {join} = require('path');
+const {existsSync} = require('fs');
+const {createRequire} = require(`module`);
+const {resolve} = require(`path`);
+
+const relPnpApiPath = '../../../../.pnp.cjs';
+
+const absPnpApiPath = resolve(__dirname, relPnpApiPath);
+
+
+if (existsSync(absPnpApiPath)) {
+  if (!process.versions.pnp) {
+    // Setup the environment to be able to require eslint
+    require(absPnpApiPath).setup();
+  }
+}
+const absRequire = createRequire(absPnpApiPath);
+
+const beDevDir = absRequire.resolve(`@anyit/be-dev/package.json`);
+const beDevRequire = createRequire(beDevDir);
+const tsPath = beDevRequire.resolve('typescript/package.json');
+const tscPath = join(tsPath, '..', 'lib/tsc.js');
 
 const runCommand = (command) => {
   try {
@@ -15,7 +35,7 @@ const runCommand = (command) => {
 
 const currentLib = process.env.INIT_CWD;
 
-runCommand(`rimraf "${join(currentLib, 'dist')}"`);
+runCommand(`rimraf '${join(currentLib, 'dist')}'`);
 runCommand('barrelsby');
 
 const configPath = join(currentLib, 'esbuild.json');
@@ -36,9 +56,13 @@ if (existsSync(configPath)) {
 }
 
 const esbuild = require('esbuild');
-esbuild.build(args).catch(() => process.exit(1));
+esbuild.build(args).catch((error) => {
+  console.error(error);
+  process.exit(1)
+});
 
+runCommand(`node ${tscPath} --declaration --emitDeclarationOnly`);
 const rollupConfig = join(__filename, '..', '..', 'dist', 'rollup.config.js');
 
-runCommand(`rollup -c "${rollupConfig}"`);
-runCommand(`rimraf "${join(currentLib, 'dist/@types')}"`);
+runCommand(`rollup -c '${rollupConfig}'`);
+runCommand(`rimraf '${join(currentLib, 'dist/@types')}'`);
