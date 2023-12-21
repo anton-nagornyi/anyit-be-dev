@@ -1,6 +1,13 @@
+#!/usr/bin/env node
+/**
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
 const {existsSync} = require(`fs`);
 const {createRequire} = require(`module`);
-const {resolve, join} = require(`path`);
+const {resolve} = require(`path`);
 
 const relPnpApiPath = "../../../../.pnp.cjs";
 
@@ -22,10 +29,9 @@ beDevRequire('ts-jest');
 
 const jestDevDir = beDevRequire.resolve(`jest/package.json`);
 const jestDevRequire = createRequire(jestDevDir);
-const tsJestDir = jestDevRequire.resolve(`ts-jest/package.json`);
-const presetPath = join(tsJestDir, '..', 'dist', 'index.js');
 
-module.exports = {
-	preset: presetPath,
-	testEnvironment: 'node',
-};
+const importLocal = jestDevRequire('import-local');
+
+if (!importLocal(__filename)) {
+  jestDevRequire('jest-cli/bin/jest');
+}

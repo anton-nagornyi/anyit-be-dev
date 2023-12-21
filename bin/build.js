@@ -35,7 +35,7 @@ const runCommand = (command) => {
 
 const currentLib = process.env.INIT_CWD;
 
-runCommand(`rimraf '${join(currentLib, 'dist')}'`);
+runCommand(`rimraf "${join(currentLib, 'dist')}"`);
 runCommand('barrelsby');
 
 const configPath = join(currentLib, 'esbuild.json');
@@ -64,5 +64,5 @@ esbuild.build(args).catch((error) => {
 runCommand(`node ${tscPath} --declaration --emitDeclarationOnly`);
 const rollupConfig = join(__filename, '..', '..', 'dist', 'rollup.config.js');
 
-runCommand(`rollup -c '${rollupConfig}'`);
-runCommand(`rimraf '${join(currentLib, 'dist/@types')}'`);
+runCommand(`rollup -c "${rollupConfig}"`);
+runCommand(`rimraf "${join(currentLib, 'dist/@types')}"`);

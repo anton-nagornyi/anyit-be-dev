@@ -5,6 +5,6 @@ const [,, ...args] = process.argv;
   try {
     await rimraf(args.join(' '));
   } catch (e) {
-    console.error(err);
+    console.error(e);
   }
 })()
