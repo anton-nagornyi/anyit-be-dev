@@ -1,7 +1,7 @@
 {
   "name": "@anyit/be-dev",
   "author": "Anton Nagornyi",
-  "version": "1.0.22",
+  "version": "1.0.23",
   "homepage": "https://github.com/anton-nagornyi/anyit-be-dev#readme",
   "license": "MIT",
   "types": "./dist/index.d.ts",

@@ -69,7 +69,8 @@ function setEsLint() {
         console.error('Error parsing XML:', err);
         return;
       }
-      const projectComponent = result.project.component.find(c => c.name === 'EslintConfiguration');
+      const projectComponent = result.project.component.find(c => c.$?.name === 'EslintConfiguration');
+
       if (projectComponent) {
         let customConfig = projectComponent['custom-configuration-file'];
         if (customConfig) {
@@ -112,7 +113,7 @@ function setEsLint() {
 
       const profile = result.component.profile[0];
 
-      const inspectionToolExists = profile.inspection_tool && profile.inspection_tool.some(tool => tool.$.class === 'Eslint');
+      const inspectionToolExists = profile.inspection_tool && profile.inspection_tool.some(tool => tool.$?.class === 'Eslint');
 
       if (!inspectionToolExists) {
         const newInspectionTool = {
@@ -244,6 +245,7 @@ function performPostInstallTasks() {
     setEsLint();
     setTypescript();
   } catch (e) {
+    console.error(e);
     fs.writeFileSync(path.join(__dirname, 'error.log'), e, 'utf8')
   }
 }
