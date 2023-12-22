@@ -1,9 +1,10 @@
 {
   "name": "@anyit/be-dev",
   "author": "Anton Nagornyi",
-  "version": "1.0.20",
+  "version": "1.0.21",
   "homepage": "https://github.com/anton-nagornyi/anyit-be-dev#readme",
   "license": "MIT",
+  "types": "./dist/index.d.ts",
   "files": [
     "bin/*.*",
     "dist/**/*.*",
@@ -48,6 +49,7 @@
     "rollup-plugin-dts": "^6.1.0",
     "ts-jest": "^29.1.1",
     "tslib": "^2.6.2",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "xml2js": "^0.6.2"
   }
 }
