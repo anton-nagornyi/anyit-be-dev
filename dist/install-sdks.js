@@ -56,7 +56,7 @@ function setEsLint() {
     fs.mkdirSync(jsLintersPath);
   }
 
-  const eslintRcPath = path.join(__dirname, 'eslintrc.js');
+  const eslintRcPath = path.join(__dirname, '.eslintrc.js');
   const eslintXmlPath = path.join(jsLintersPath, 'eslint.xml');
   if (!fs.existsSync(eslintXmlPath)) {
     const template = fs.readFileSync(path.join(__dirname, 'eslint.xml'), 'utf8').replace('${eslintrc.js}', eslintRcPath);
@@ -239,9 +239,13 @@ function performPostInstallTasks() {
     });
   }
 
-  copyJestTemplate();
-  setEsLint();
-  setTypescript();
+  try {
+    copyJestTemplate();
+    setEsLint();
+    setTypescript();
+  } catch (e) {
+    fs.writeFileSync(path.join(__dirname, 'error.log'), e, 'utf8')
+  }
 }
 
 console.log('Setting SDKs...');
