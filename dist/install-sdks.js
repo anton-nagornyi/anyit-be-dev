@@ -31,7 +31,7 @@ function copyDir(src, dest) {
 }
 
 function copyJestTemplate() {
-  const jestConfigPath = path.join(__dirname, 'jest.config.js');
+  const jestConfigPath = path.join(__dirname, 'jest.config.cjs');
   const template = fs.readFileSync(path.join(__dirname, 'Template Jest.run.xml'), 'utf8').replace('${jest.config.js}', jestConfigPath);
   const runDir = path.join(process.env.PROJECT_CWD, '.run');
 
