@@ -1,6 +1,7 @@
 const {join} = require(`path`);
 const {dts} = require('rollup-plugin-dts');
 const autoExternal= require('rollup-plugin-auto-external');
+const typescript = require('rollup-plugin-typescript2');
 
 const currentLib = process.env.INIT_CWD;
 
