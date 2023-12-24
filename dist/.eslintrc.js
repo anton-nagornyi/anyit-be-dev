@@ -1,3 +1,5 @@
+const path = require(`path`);
+
 module.exports = {
   env: {
     es6: true,
@@ -8,7 +10,8 @@ module.exports = {
     'prettier'
   ],
   parserOptions: {
-    project: ['./tsconfig.json'],
+    tsconfigRootDir: process.env.npm_package_json,
+    project: [path.join(__dirname, './tsconfig.json')],
     sourceType: 'module',
     ecmaFeatures: {
       jsx: true,
