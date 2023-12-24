@@ -13,10 +13,18 @@ module.exports = [
       format: 'cjs',
       sourcemap: true,
     },
-    external: [autoExternal()],
     plugins: [
+      autoExternal(),
       typescript({
-        tsconfig: './tsconfig.build.json'
+        tsconfig: join(__dirname, 'tsconfig.build.json'),
+        tsconfigOverride: {
+          include: [join(currentLib, 'src')],
+          compilerOptions: {
+            declarationDir: join(currentLib, 'dist/@types'),
+            outDir: join(currentLib, 'dist')
+          }
+        },
+        useTsconfigDeclarationDir: true
       }),
     ],
   },
