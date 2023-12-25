@@ -12,4 +12,4 @@ const runCommand = (command) => {
   }
 };
 
-runCommand(`eslint --config="${join(__dirname, '..', 'dist', 'eslintrc.js')}" --fix "{src,tests}/**/*.ts"`);
+runCommand(`node ${join(process.env.PROJECT_CWD, '.yarn', 'sdks', 'eslint', 'bin', 'eslint.js')} --config="${join(__dirname, '..', 'dist', '.eslintrc.js')}" --fix "{src,tests}/**/*.ts"`);
