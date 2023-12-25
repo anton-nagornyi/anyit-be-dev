@@ -88,7 +88,6 @@ function setEsLint() {
           console.error('Error writing the XML file:', err);
           return;
         }
-        console.log('XML file successfully updated');
       });
     });
   }
@@ -140,21 +139,9 @@ function setEsLint() {
           console.error('Error writing the XML file:', err);
           return;
         }
-        console.log('XML file successfully updated');
       });
     });
   }
-
-  const workspacePath = path.join(process.env.PROJECT_CWD, '.idea', 'workspace.xml');
-  const workspace = fs.readFileSync(workspacePath, 'utf8');
-  const eslint = path.join(process.env.PROJECT_CWD, '.yarn', 'sdks', 'eslint');
-
-  fs.writeFileSync(
-    workspacePath,
-    workspace
-      .replace('"node.js.selected.package.eslint": "(autodetect)",\n', `"node.js.detected.package.eslint": "true",\n"node.js.detected.package.standard": "true",\n"node.js.selected.package.eslint": "${eslint}",\n`)
-      .replace('&quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,\n', `&quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,\n&quot;node.js.detected.package.standard&quot;: &quot;true&quot;,\n&quot;node.js.selected.package.eslint&quot;: &quot;${eslint}&quot;,\n`),
-  );
 }
 
 function setTypescript() {
@@ -220,7 +207,6 @@ function setTypescript() {
           console.error('Error writing the XML file:', err);
           return;
         }
-        console.log('XML file successfully updated');
       });
     });
   }
