@@ -231,5 +231,12 @@ module.exports = {
     'jest/no-focused-tests': 1,
     'jest/no-identical-title': 1,
     'jest/valid-expect': 1,
+
+    // AnyIt
+    'no-async-promise-executor': 0,
+    'no-await-in-loop': 0,
+    'no-param-reassign': 0,
+    'class-methods-use-this': 0,
+    'max-classes-per-file': 0
   },
 };
