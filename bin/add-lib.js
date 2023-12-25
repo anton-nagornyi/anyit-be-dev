@@ -77,7 +77,7 @@ const setGithubWorkflow = (args) => {
   const {packagePath, packageName, dir, repoUrl} = args;
 
   const github = path.join(process.env.PROJECT_CWD, '.github');
-  copyDirectoryRecursively(path.join(__dirname, '..', 'dist', '.github'), github);
+  copyDirectoryRecursively(path.join(__dirname, '..', 'dist', 'github'), github);
 
   const workflows = path.join(github, 'workflows');
 
@@ -132,7 +132,7 @@ const run = () => {
     )
   );
 
-  addLib(args);
+  addLib({name: restArgs[0], ...args});
 }
 
 run();
