@@ -1,0 +1,14 @@
+name: Publish PACKAGE_NAME
+on:
+  workflow_dispatch:
+
+jobs:
+  publish:
+    name: publish
+    runs-on: ubuntu-latest
+    steps:
+      - name: publish
+        uses: REPO_NAME/.github/composite-actions/publish@main
+        with:
+          working-directory: packages/PACKAGE_DIR
+          npm-auth-token: ${{ secrets.NPM_AUTH_TOKEN }}
