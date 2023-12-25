@@ -11,4 +11,4 @@ const runCommand = (command) => {
   }
 };
 
-runCommand(`yarn version --patch --no-git-tag-version`);
+runCommand(`yarn version patch`);
