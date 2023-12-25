@@ -152,8 +152,8 @@ function setEsLint() {
   fs.writeFileSync(
     workspacePath,
     workspace
-      .replace('"node.js.selected.package.eslint": "(autodetect)"', `"node.js.detected.package.eslint": "true",\n"node.js.detected.package.standard": "true",\n"node.js.selected.package.eslint": "${eslint}",\n`)
-      .replace('&quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;', `&quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,\n&quot;node.js.detected.package.standard&quot;: &quot;true&quot;,\n&quot;node.js.selected.package.eslint&quot;: &quot;${eslint}&quot;,\n`),
+      .replace('"node.js.selected.package.eslint": "(autodetect)",\n', `"node.js.detected.package.eslint": "true",\n"node.js.detected.package.standard": "true",\n"node.js.selected.package.eslint": "${eslint}",\n`)
+      .replace('&quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,\n', `&quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,\n&quot;node.js.detected.package.standard&quot;: &quot;true&quot;,\n&quot;node.js.selected.package.eslint&quot;: &quot;${eslint}&quot;,\n`),
   );
 }
 
