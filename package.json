@@ -1,7 +1,7 @@
 {
   "name": "@anyit/be-dev",
   "author": "Anton Nagornyi",
-  "version": "1.0.33",
+  "version": "1.0.34",
   "homepage": "https://github.com/anton-nagornyi/anyit-be-dev#readme",
   "license": "MIT",
   "main": "./dist/index.js",
@@ -18,7 +18,10 @@
     "init:monorepo": "./bin/init.js",
     "rimraf": "./bin/proxy-rimraf.js",
     "rollup": "./bin/proxy-rollup.js",
-    "test": "./bin/test.js"
+    "test": "./bin/test.js",
+    "lint": "./bin/lint.js",
+    "lint:fix": "./bin/lint-fix.js",
+    "bump-version": "yarn version --patch --no-git-tag-version"
   },
   "repository": {
     "type": "git",

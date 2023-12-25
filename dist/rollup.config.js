@@ -24,7 +24,9 @@ module.exports = [
             outDir: join(currentLib, 'dist')
           }
         },
-        useTsconfigDeclarationDir: true
+        useTsconfigDeclarationDir: true,
+        cacheRoot: join(currentLib, 'dist', 'cache'),
+        clean: true
       }),
     ],
   },
