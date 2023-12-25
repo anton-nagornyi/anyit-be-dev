@@ -1,7 +1,7 @@
 {
   "name": "@anyit/be-dev",
   "author": "Anton Nagornyi",
-  "version": "1.0.38",
+  "version": "1.0.39",
   "homepage": "https://github.com/anton-nagornyi/anyit-be-dev#readme",
   "license": "MIT",
   "main": "./dist/index.js",
@@ -21,7 +21,7 @@
     "test": "./bin/test.js",
     "lint:check": "./bin/lint.js",
     "lint:fix": "./bin/lint-fix.js",
-    "bump-version": "yarn version --patch --no-git-tag-version"
+    "version:bump": "./bin/version-bump.js"
   },
   "repository": {
     "type": "git",

@@ -303,6 +303,19 @@ const setTypescript = () => {
   }
 }
 
+const copyJestTemplate = () => {
+  const jestConfigPath = path.join(__dirname, '..', 'dist', 'jest.config.cjs');
+  const template = fs.readFileSync(path.join(__dirname, '..', 'dist', 'Template Jest.run.xml'), 'utf8').replace('${jest.config.js}', jestConfigPath);
+  const runDir = path.join(process.env.PROJECT_CWD, '.run');
+
+  if (!fs.existsSync(runDir)) {
+    fs.mkdirSync(runDir);
+  }
+
+  const templatePath = path.join(runDir, 'Template Jest.run.xml');
+  fs.writeFileSync(templatePath, template);
+}
+
 
 const init = () => {
   const [,, ...restArgs] = process.argv;
@@ -319,6 +332,7 @@ const init = () => {
   setIdeaWorkspace();
   setEsLint();
   setTypescript();
+  copyJestTemplate();
 }
 
 init();
