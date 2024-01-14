@@ -317,6 +317,32 @@ const copyJestTemplate = () => {
   fs.writeFileSync(templatePath, template);
 }
 
+const setYarn = () => {
+  const yarnDir = path.join(process.env.PROJECT_CWD, '.yarn');
+  const yarnReleasesDir = path.join(yarnDir, 'releases');
+  const yarnDestRelease = path.join(yarnReleasesDir, 'yarn-4.0.2.cjs');
+
+  const yarnConfigPath = path.join(__dirname, '..', 'dist', '.yarnrc.yml');
+  const yarnDestConfigPath = path.join(process.env.PROJECT_CWD, '.yarnrc.yml');
+
+  if (!fs.existsSync(yarnDestConfigPath)) {
+    fs.copyFileSync(yarnConfigPath, yarnDestConfigPath);
+  }
+
+  if (!fs.existsSync(yarnDir)) {
+    fs.mkdirSync(yarnDir);
+  }
+
+  if (!fs.existsSync(yarnReleasesDir)) {
+    fs.mkdirSync(yarnReleasesDir);
+  }
+
+  if (!fs.existsSync(yarnDestRelease)) {
+    const yarnRelease = path.join(__dirname, '..', 'dist', 'yarn-4.0.2.cjs');
+    fs.copyFileSync(yarnRelease, yarnDestRelease);
+  }
+}
+
 
 const init = () => {
   const [,, ...restArgs] = process.argv;
@@ -334,6 +360,7 @@ const init = () => {
   setEsLint();
   setTypescript();
   copyJestTemplate();
+  setYarn();
 }
 
 init();
