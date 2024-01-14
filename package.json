@@ -1,7 +1,7 @@
 {
   "name": "@anyit/be-dev",
   "author": "Anton Nagornyi",
-  "version": "1.0.40",
+  "version": "1.0.41",
   "homepage": "https://github.com/anton-nagornyi/anyit-be-dev#readme",
   "license": "MIT",
   "main": "./dist/index.js",
@@ -16,11 +16,11 @@
     "barrelsby": "./bin/proxy-barrelsby.js",
     "build": "./bin/build.js",
     "init:monorepo": "./bin/init.js",
+    "lint:check": "./bin/lint.js",
+    "lint:fix": "./bin/lint-fix.js",
     "rimraf": "./bin/proxy-rimraf.js",
     "rollup": "./bin/proxy-rollup.js",
     "test": "./bin/test.js",
-    "lint:check": "./bin/lint.js",
-    "lint:fix": "./bin/lint-fix.js",
     "version:bump": "./bin/version-bump.js"
   },
   "repository": {
@@ -60,5 +60,10 @@
     "tslib": "^2.6.2",
     "typescript": "^5.3.3",
     "xml2js": "^0.6.2"
+  },
+  "dependenciesMeta": {
+    "tslib@2.6.2": {
+      "unplugged": true
+    }
   }
 }

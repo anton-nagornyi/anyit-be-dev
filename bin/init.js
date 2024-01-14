@@ -285,7 +285,8 @@ const setTypescript = () => {
     compilerOptions: {
       target: 'esnext',
       moduleResolution: 'node',
-      esModuleInterop: true
+      esModuleInterop: true,
+      experimentalDecorators: true
     }
   }
 

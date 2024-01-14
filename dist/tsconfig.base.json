@@ -13,7 +13,10 @@
     "declaration": true,
     "sourceMap": true,
     "stripInternal": true,
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "paths": {
+      "tslib" : ["./tslib/tslib.d.ts"]
+    }
   },
   "rootDir": "./src",
   "allowJs": false,

@@ -51,14 +51,20 @@ __metadata:
     tslib: "npm:^2.6.2"
     typescript: "npm:^5.3.3"
     xml2js: "npm:^0.6.2"
+  dependenciesMeta:
+    tslib@2.6.2:
+      unplugged: true
   bin:
-    "add:lib": ./bin/add.js
+    "add:lib": bin/add-lib.js
     barrelsby: ./bin/proxy-barrelsby.js
     build: ./bin/build.js
     "init:monorepo": ./bin/init.js
+    "lint:check": ./bin/lint.js
+    "lint:fix": ./bin/lint-fix.js
     rimraf: ./bin/proxy-rimraf.js
     rollup: ./bin/proxy-rollup.js
     test: ./bin/test.js
+    "version:bump": ./bin/version-bump.js
   languageName: unknown
   linkType: soft
 
