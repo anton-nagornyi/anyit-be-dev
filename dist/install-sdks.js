@@ -224,7 +224,7 @@ function performPostInstallTasks() {
   if (!fs.existsSync(parentSdkPath)) {
     copyDir(libSdkPath, parentSdkPath);
   } else {
-    const sdks = ['eslint', 'typescript', 'prettier'];
+    const sdks = ['eslint', 'typescript', 'prettier', 'jest'];
 
     sdks.forEach((sdk) => {
       const libSdk = path.join(libSdkPath, sdk);
