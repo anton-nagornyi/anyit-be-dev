@@ -27,7 +27,7 @@ function moveFiles(srcDir, destDir) {
 }
 
 function getWeirdPath(basePath, relativePath) {
-  let fullPath = join(basePath, relativePath);
+  const fullPath = join(basePath, relativePath);
 
   if (fs.existsSync(fullPath)) {
     return fullPath;
@@ -35,8 +35,8 @@ function getWeirdPath(basePath, relativePath) {
 
   const parts = fullPath.split(sep);
 
-  for (let i = 0; i < parts.length; ++i) {
-    let subPath = parts.slice(i).join(sep);
+  for (let i = 1; i < parts.length; ++i) {
+    const subPath = join(basePath, parts.slice(i).join(sep));
 
     if (fs.existsSync(subPath)) {
       return subPath;
