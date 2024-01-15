@@ -26,7 +26,7 @@ function moveFiles(srcDir, destDir) {
   });
 }
 
-if (fs.existsSync(!inputPath)) {
+if (!fs.existsSync(inputPath)) {
   const weirdInputPath = join(currentLib, 'dist/@types', process.env.INIT_CWD.replace(process.env.PROJECT_CWD, ''));
   console.log('---!!!!', weirdInputPath);
 
