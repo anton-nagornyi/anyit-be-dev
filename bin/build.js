@@ -18,6 +18,8 @@ runCommand(`rimraf "${join(currentLib, 'dist')}"`);
 runCommand('barrelsby');
 
 const rollupConfig = join(__filename, '..', '..', 'dist', 'rollup.config.js');
+const rollupConfigDts = join(__filename, '..', '..', 'dist', 'rollup.config.dts.js');
 
 runCommand(`rollup -c "${rollupConfig}"`);
+runCommand(`rollup -c "${rollupConfigDts}"`);
 runCommand(`rimraf "${join(currentLib, 'dist/@types')}"`);
