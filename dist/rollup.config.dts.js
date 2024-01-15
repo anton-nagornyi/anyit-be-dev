@@ -37,7 +37,7 @@ function getWeirdPath(basePath, relativePath) {
 
   for (let i = 0; i < parts.length; ++i) {
     let subPath = parts.slice(i).join(sep);
-    
+
     if (fs.existsSync(subPath)) {
       return subPath;
     }
