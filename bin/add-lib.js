@@ -49,7 +49,7 @@ const setPackageJson = (args) => {
   Object.assign(packageJson, {
     author: author ?? 'Anton Nagornyi',
     license: 'MIT',
-    homepage: `${useRepo}blob/main/packages/${dir}/README.md`,
+    homepage: `${useRepo}/blob/main/packages/${dir}/README.md`,
     bugs: {
       url: `${useRepo}/issues`
     },
