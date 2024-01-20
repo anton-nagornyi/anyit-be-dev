@@ -237,6 +237,7 @@ module.exports = {
     'no-await-in-loop': 0,
     'no-param-reassign': 0,
     'class-methods-use-this': 0,
-    'max-classes-per-file': 0
+    'max-classes-per-file': 0,
+    'import/no-extraneous-dependencies': 0
   },
 };
