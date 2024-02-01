@@ -322,7 +322,7 @@ const setYarn = () => {
   const yarnReleasesDir = path.join(yarnDir, 'releases');
   const yarnDestRelease = path.join(yarnReleasesDir, 'yarn-4.0.2.cjs');
 
-  const yarnConfigPath = path.join(__dirname, '..', 'dist', '.yarnrc.yml');
+  const yarnConfigPath = path.join(__dirname, '..', 'dist', 'yarnrc.yml');
   const yarnDestConfigPath = path.join(process.env.PROJECT_CWD, '.yarnrc.yml');
 
   if (!fs.existsSync(yarnDestConfigPath)) {
