@@ -7,7 +7,7 @@ module.exports = {
   extends: [
     'airbnb-base',
     'airbnb-typescript/base',
-    'prettier'
+    'plugin:prettier/recommended'
   ],
   parserOptions: {
     tsconfigRootDir: process.env.npm_package_json,
@@ -35,6 +35,13 @@ module.exports = {
             argsIgnorePattern: '^_',
             destructuredArrayIgnorePattern: '^_',
           },
+        ],
+        'prettier/prettier': [
+          'error',
+          {
+            singleQuote: true,
+            trailingComma: 'all'
+          }
         ],
         'no-unused-vars': 'off',
         'no-shadow': 'off',
