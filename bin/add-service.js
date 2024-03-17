@@ -141,7 +141,7 @@ const addService = (args) => {
     setGithubWorkflow({...useArgs, repoUrl});
     setEnvs(servicePath, serviceName);
 
-    fs.renameSync(path.join(servicePath, 'gif'), path.join(servicePath, '.gitignore'));
+    fs.renameSync(path.join(servicePath, 'g.if'), path.join(servicePath, '.gitignore'));
   }
 }
 
