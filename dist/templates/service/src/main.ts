@@ -2,7 +2,9 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app-module';
 import { Config } from './config';
 
-declare const module: any;
+declare const module: { hot: any };
+
+const Module = module;
 
 async function bootstrap() {
   if (!process.env.SERVICE_NAME) {
@@ -16,9 +18,9 @@ async function bootstrap() {
 
   await app.listen(Config.app.port);
 
-  if (module.hot) {
-    module.hot.accept();
-    module.hot.dispose(() => app.close());
+  if (Module.hot) {
+    Module.hot.accept();
+    Module.hot.dispose(() => app.close());
   }
 }
 
