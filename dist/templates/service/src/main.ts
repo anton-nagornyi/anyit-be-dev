@@ -5,13 +5,12 @@ import { Config } from './config';
 declare const module: any;
 
 async function bootstrap() {
-
   if (!process.env.SERVICE_NAME) {
     throw new Error('SERVICE_NAME is not set');
   }
 
   const app = await NestFactory.create(AppModule, {
-    snapshot: Config.app.environment != 'production',
+    snapshot: Config.app.environment !== 'production',
     abortOnError: false,
   });
 

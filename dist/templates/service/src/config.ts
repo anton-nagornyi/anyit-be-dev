@@ -9,6 +9,6 @@ export const Config = Cfg.set({
     environment: {
       default: 'development',
       type: 'string',
-    }
+    },
   },
 });
