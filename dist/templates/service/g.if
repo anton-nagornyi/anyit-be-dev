@@ -1,3 +1,4 @@
 dist
 dotenv-picker.json
+.dotenv-picker-state.json
 .env.*
