@@ -1,0 +1,34 @@
+name: Build Staging SERVICE_NAME
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - "services/SERVICE_DIR/**"
+      - "services/SERVICE_DIR.task-def.json"
+      - ".github/workflows/staging-build-SERVICE_DIR.yml"
+      - ".github/composite-actions/build-service/action.yml"
+
+jobs:
+  SERVICE_DIR-docker-build:
+    name: SERVICE_NAME Docker Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-west-2
+
+      - name: Service Deploy
+        uses: REPO_NAME/.github/composite-actions/build-service@main
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          npm-auth-token: ${{ secrets.NPM_AUTH_TOKEN }}
+          service-name: SERVICE_DIR
+          environment: staging
+          cluster: staging
+          github-organization: GITHUB_ORGANIZATION

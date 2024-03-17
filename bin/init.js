@@ -17,7 +17,8 @@ const setPackageJson = (args) => {
     private: true,
     workspaces: {
       packages: [
-        'packages/**/*'
+        'packages/**/*',
+        'services/**/*'
       ]
     },
     author: author ?? 'Anton Nagornyi',

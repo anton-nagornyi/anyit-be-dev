@@ -1,7 +1,7 @@
 {
   "name": "@anyit/be-dev",
   "author": "Anton Nagornyi",
-  "version": "1.0.55",
+  "version": "1.0.56",
   "homepage": "https://github.com/anton-nagornyi/anyit-be-dev#readme",
   "license": "MIT",
   "main": "./dist/index.js",
@@ -13,6 +13,7 @@
   ],
   "bin": {
     "add:lib": "bin/add-lib.js",
+    "add:service": "bin/add-service.js",
     "barrelsby": "./bin/proxy-barrelsby.js",
     "build": "./bin/build.js",
     "init:monorepo": "./bin/init.js",

@@ -1,0 +1,124 @@
+name: Build Service
+description: "Build service"
+
+inputs:
+  aws-access-key-id:
+    description: "AWS_ACCESS_KEY_ID"
+    required: true
+  aws-secret-access-key:
+    description: "AWS_SECRET_ACCESS_KEY"
+    required: true
+  environment:
+    description: "Environment, e.g. staging"
+    required: true
+  cluster:
+    description: "Cluster, e.g. staging"
+    required: true
+  environment-variables:
+    description: "Environment variables"
+    required: false
+  npm-auth-token:
+    description: "NPM_AUTH_TOKEN"
+    required: true
+  service-name:
+    description: "Service name, e.g. cool-service"
+    required: true
+  github-organization:
+    description: "Github organization"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: Set up Node.js v18.18.2
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18.18.2
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Get job run ID
+      id: get-job-id
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const result = await github.rest.actions.listJobsForWorkflowRun({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            run_id: context.runId,
+          });
+          return result.data.jobs[0].id
+
+    - name: Setup Environment Variables
+      id: package-json-version
+      shell: bash
+      run: |
+        echo "VERSION=$(node -pe "require('./package.json')['version']")" >> $GITHUB_ENV
+        echo '//npm.pkg.github.com/:_authToken=${NPM_AUTH_TOKEN}' > .npmrc
+        echo '${{inputs.github-organization}}:registry=https://npm.pkg.github.com/' >> .npmrc
+        npm config set --global '//registry.npmjs.org/:_authToken' "${NPM_AUTH_TOKEN}"
+        echo "GITHUB_SHA_SHORT=$(echo $GITHUB_SHA | cut -c 1-6)" >> $GITHUB_ENV
+        echo "GITHUB_SHA=$(echo $GITHUB_SHA)" >> $GITHUB_ENV
+        echo "BUILD=${{ steps.get-job-id.outputs.result }}" >> $GITHUB_ENV
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{inputs.aws-access-key-id}}
+        aws-secret-access-key: ${{inputs.aws-secret-access-key}}
+        aws-region: us-west-2
+
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
+
+    - name: Build and tag service image
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        file: ecs/Dockerfile.prod
+        push: true
+        tags: ${{ steps.login-ecr.outputs.registry }}/${{inputs.service-name}}/nodejs:${{ env.GITHUB_SHA }},${{ steps.login-ecr.outputs.registry }}/${{inputs.service-name}}/nodejs:latest
+        secrets: |
+          NPM_AUTH_TOKEN=${{ inputs.npm-auth-token }}
+        build-args: |
+          NPM_AUTH_TOKEN=${{ inputs.npm-auth-token }}
+          SERVICE=${{inputs.service-name}}
+        secret-envs: |
+          NPM_AUTH_TOKEN=${{ inputs.npm-auth-token }}
+          SERVICE=${{inputs.service-name}}
+
+    - name: Fill in the new image ID in the Amazon ECS task definition
+      uses: aws-actions/amazon-ecs-render-task-definition@v1
+      id: task-def
+      with:
+        task-definition: ecs/${{inputs.environment}}/${{inputs.service-name}}.task-def.json
+        container-name: ${{inputs.service-name}}
+        image: ${{ steps.login-ecr.outputs.registry }}/${{inputs.service-name}}/nodejs:${{ env.GITHUB_SHA }}
+        environment-variables: |
+          VERSION=${{ env.VERSION }}
+          BUILD=${{ env.BUILD }}
+          COMMIT=${{ env.GITHUB_SHA_SHORT }}
+          DEPLOY_ENV=${{inputs.environment}}
+          ${{inputs.environment-variables}}
+
+    - name: Deploy Amazon ECS task definition
+      uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+      with:
+        task-definition: ${{ steps.task-def.outputs.task-definition }}
+        service: ${{inputs.service-name}}
+        cluster: ${{inputs.cluster}}
+        wait-for-service-stability: true
+
+    - name: Restart Gateway Service
+      shell: bash
+      env:
+        ECS_CLUSTER: ${{inputs.cluster}}
+      run: |
+        aws ecs update-service --force-new-deployment --service gateway --cluster $ECS_CLUSTER
