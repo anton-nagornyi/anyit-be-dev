@@ -106,10 +106,10 @@ const setGithubWorkflow = (args) => {
 const setEnvs = (servicePath, serviceName) => {
   const denv = fs.readFileSync(path.join(servicePath, 'envs/.env'), 'utf8');
 
-  denv.replaceAll('SERVICE_NAME', serviceName);
+  denv.replaceAll('{SERVICE_NAME}', serviceName);
   const denvLocal = fs.readFileSync(path.join(servicePath, 'envs/.env.local'), 'utf8');
 
-  denv.replaceAll('SERVICE_NAME', serviceName);
+  denv.replaceAll('{SERVICE_NAME}', serviceName);
 
   fs.writeFileSync(path.join(servicePath, 'envs/.env'), denv);
   fs.writeFileSync(path.join(servicePath, 'envs/.env.local'), denvLocal);
@@ -140,6 +140,8 @@ const addService = (args) => {
     setReadMe(useArgs);
     setGithubWorkflow({...useArgs, repoUrl});
     setEnvs(servicePath, serviceName);
+
+    fs.renameSync(path.join(servicePath, 'gitignore'), path.join(servicePath, '.gitignore'));
   }
 }
 
