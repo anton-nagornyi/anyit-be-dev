@@ -1,7 +1,7 @@
 {
   "name": "@anyit/be-dev",
   "author": "Anton Nagornyi",
-  "version": "1.0.58",
+  "version": "1.0.59",
   "homepage": "https://github.com/anton-nagornyi/anyit-be-dev#readme",
   "license": "MIT",
   "main": "./dist/index.js",
@@ -22,7 +22,8 @@
     "rimraf": "./bin/proxy-rimraf.js",
     "rollup": "./bin/proxy-rollup.js",
     "test": "./bin/test.js",
-    "version:bump": "./bin/version-bump.js"
+    "version:bump": "./bin/version-bump.js",
+    "start:dev": "./bin/start-dev.js"
   },
   "repository": {
     "type": "git",
